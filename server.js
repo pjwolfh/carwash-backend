@@ -17,10 +17,6 @@ const regalosRoutes = require('./routes/regalos');
 const canjesRoutes = require('./routes/canjes');
 const ventasRoutes = require('./routes/ventas');
 const dellersRoutes = require('./routes/dellers');
-const cors = require('cors');
-app.use(cors());
-
-
 
 // 🔌 Conexión a la base de datos
 require('./db/connection');
@@ -45,8 +41,6 @@ const corsOptions = {
 
 // ✅ Usar CORS con opciones
 app.use(cors(corsOptions));
-
-// ✅ Middleware para preflight (opciones CORS)
 app.options('*', cors(corsOptions));
 
 // 🧩 Middlewares para parsing
