@@ -15,7 +15,7 @@ const generarIdUsuario = () => {
 // ✅ Login con JOIN para empleados
 const loginUsuario = (req, res) => {
   const { telefono } = req.body;
-  console.log('📲 Login recibido con teléfono:', telefono);
+  console.log('📲 Login recibido con teléfono:', telefono); // <-- Agrega esta línea
 
   const query = `
     SELECT 
@@ -37,6 +37,8 @@ const loginUsuario = (req, res) => {
       return res.status(500).json({ error: err });
     }
 
+    console.log('Resultados de la consulta login:', results); // <-- Y esta línea
+
     if (results.length > 0) {
       res.json(results[0]);
     } else {
@@ -44,6 +46,7 @@ const loginUsuario = (req, res) => {
     }
   });
 };
+
 
 // ✅ Crear nuevo usuario
 const crearUsuario = async (req, res) => {

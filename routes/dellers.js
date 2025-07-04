@@ -36,6 +36,6 @@ router.get('/', dellersController.obtenerDellers);
 router.get('/sucursal/:id_sucursal', dellersController.obtenerDellersPorSucursal);
 router.put('/:id', dellersController.actualizarDeller);
 router.delete('/:id', dellersController.eliminarDeller);
-router.get('/:id', dellersController.obtenerDellerPorId);
+router.get('/id/:id', dellersController.obtenerDellerPorId);
 
 module.exports = router;

@@ -19,23 +19,14 @@ const {
 // 🔐 Login del usuario
 router.post('/login', loginUsuario);
 
-// 🆕 Registro del usuario
-router.post('/registrar', crearUsuario);
+// 🆕 Crear nuevo usuario (solo esta ruta POST)
+router.post('/', crearUsuario);
 
 // 🔍 Obtener todos los usuarios
 router.get('/', obtenerUsuarios);
 
-// 🔍✅ Obtener usuario por código alfanumérico (ej. /usuarios/codigo/7P8NQU)
+// 🔍 Obtener usuario por código alfanumérico
 router.get('/codigo/:user_id', obtenerUsuarioPorCodigo);
-
-// 🔍 Obtener usuario por ID numérico (ej. /usuarios/13)
-router.get('/:id', obtenerUsuario);
-
-// ✅ Editar usuario
-router.put('/:id', editarUsuario);
-
-// ❌ Eliminar usuario
-router.delete('/:id', eliminarUsuario);
 
 // 🔁 Resetear contraseña
 router.put('/reset-password/:id', resetearPasswordCliente);
@@ -51,5 +42,14 @@ router.get('/:id/credenciales', getCredencialesUsuario);
 
 // 🔗 Sucursales asignadas al usuario
 router.get('/:id/sucursales', obtenerSucursalesPorUsuario);
+
+// ✅ Obtener usuario por ID numérico
+router.get('/id/:id', obtenerUsuario);
+
+// ✅ Editar usuario
+router.put('/:id', editarUsuario);
+
+// ❌ Eliminar usuario
+router.delete('/:id', eliminarUsuario);
 
 module.exports = router;

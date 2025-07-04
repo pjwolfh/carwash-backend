@@ -11,13 +11,14 @@ const {
 // ✅ Registrar canje
 router.post('/', registrarCanje);
 
-// ✅ Obtener canjes por usuario
-router.get('/:user_id', obtenerCanjesPorUsuario);
-
 // ✅ Validar canje
 router.post('/validar', validarCanje);
 
 // ✅ Entregar canje
 router.post('/entregar', entregarCanje);
+
+// ✅ Obtener canjes por usuario (al final)
+router.get('/:user_id', obtenerCanjesPorUsuario);
+
 
 module.exports = router;

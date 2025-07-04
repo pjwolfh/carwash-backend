@@ -15,19 +15,19 @@ const {
 
 // 🧩 Endpoints principales
 router.get('/', obtenerClientes);
-router.get('/:id', obtenerClientePorId);
 router.post('/crear', crearCliente);
-router.put('/:id', editarCliente);
-router.delete('/:id', eliminarCliente);
 
 // 🔁 Servicios y ventas relacionados al cliente
 router.get('/:clienteId/servicios', obtenerServiciosPorCliente);
 router.get('/:clienteId/ventas-hoy', obtenerVentasDelDiaPorCliente);
-
-// 🔐 Info de usuario del cliente
 router.get('/:clienteId/usuario', getUsuarioPorCliente);
 
 // 🔁 Reset de contraseña
 router.put('/:id/reset-password', resetearPasswordCliente);
+
+// ✅ Obtener, editar y eliminar cliente por ID (al final)
+router.get('/id/:id', obtenerClientePorId);
+router.put('/:id', editarCliente);
+router.delete('/:id', eliminarCliente);
 
 module.exports = router;

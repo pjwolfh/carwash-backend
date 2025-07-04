@@ -34,7 +34,7 @@ router.put('/:idEmpleado', empleadosController.actualizarEmpleado);
 // ✅ Eliminar empleado
 router.delete('/:idEmpleado', empleadosController.eliminarEmpleado);
 
-// ✅ LISTAR EMPLEADOS POR SUCURSAL (AL FINAL para evitar conflicto)
-router.get('/:idSucursal', empleadosController.obtenerEmpleadosPorSucursal);
+// ✅ LISTAR EMPLEADOS POR SUCURSAL (con prefijo claro)
+router.get('/sucursal/:idSucursal', empleadosController.obtenerEmpleadosPorSucursal);
 
 module.exports = router;

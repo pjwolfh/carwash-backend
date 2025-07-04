@@ -9,15 +9,6 @@ router.get('/', serviciosController.obtenerTodosLosServicios);
 // ✅ Obtener servicios por sucursal
 router.get('/sucursal/:id_sucursal', serviciosController.obtenerServicios);
 
-// ✅ Crear nuevo servicio
-router.post('/', serviciosController.agregarServicio);
-
-// ✅ Editar servicio
-router.put('/:id', serviciosController.editarServicio);
-
-// ✅ Eliminar servicio
-router.delete('/:id', serviciosController.eliminarServicio);
-
 // ✅ Subir imagen
 router.post('/upload', upload.single('imagen'), (req, res) => {
   if (!req.file) {
@@ -27,5 +18,14 @@ router.post('/upload', upload.single('imagen'), (req, res) => {
   const imagePath = `/uploads/${req.file.filename}`;
   res.json({ imagePath });
 });
+
+// ✅ Crear nuevo servicio
+router.post('/', serviciosController.agregarServicio);
+
+// ✅ Editar servicio (al final)
+router.put('/:id', serviciosController.editarServicio);
+
+// ✅ Eliminar servicio (al final)
+router.delete('/:id', serviciosController.eliminarServicio);
 
 module.exports = router;

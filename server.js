@@ -4,7 +4,19 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 
-// 📦 Importar rutas
+dotenv.config();
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+
+// 🔌 Conexión
+require('./db/connection');
+
+// 🧭 IMPORTS
 const authRoutes = require('./routes/auth');
 const usuariosRoutes = require('./routes/usuarios');
 const clientesRoutes = require('./routes/clientes');
@@ -18,58 +30,36 @@ const canjesRoutes = require('./routes/canjes');
 const ventasRoutes = require('./routes/ventas');
 const dellersRoutes = require('./routes/dellers');
 
-// 🔌 Conexión a la base de datos
-require('./db/connection');
+// ✅ DEBUG TRY/CATCH en cada use()
+function safeUse(path, router) {
+  try {
+    app.use(path, router);
+    console.log(`✅ Montada: ${path}`);
+  } catch (err) {
+    console.error(`❌ ERROR en ruta ${path}:`, err.message);
+    throw err;
+  }
+}
 
-// 🌍 Configurar variables de entorno
-dotenv.config();
+// ✅ Registrar rutas con debug
+safeUse('/api/auth', authRoutes);
+safeUse('/api/usuarios', usuariosRoutes);
+safeUse('/api/clientes', clientesRoutes);
+safeUse('/api/control-horarios', controlHorariosRoutes);
+safeUse('/api/sucursales', sucursalesRoutes);
+safeUse('/api/empleados', empleadosRoutes);
+safeUse('/api/asistencias', asistenciaRoutes);
+safeUse('/api/servicios', serviciosRoutes);
+safeUse('/api/regalos', regalosRoutes);
+safeUse('/api/canjes', canjesRoutes);
+safeUse('/api/ventas', ventasRoutes);
+safeUse('/api/dellers', dellersRoutes);
 
-// 🚀 Crear instancia de la app
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// 🌐 Configurar CORS
-const corsOptions = {
-  origin: [
-    'https://carwash-app-three.vercel.app',
-    'https://carwash-app-git-main-pjs-projects-5248e35c.vercel.app'
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-// ✅ Usar CORS con opciones
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-
-// 🧩 Middlewares para parsing
-app.use(express.json({ limit: '5mb' }));
-app.use(express.urlencoded({ extended: true, limit: '5mb' }));
-
-// ✅ Servir archivos estáticos
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
-
-// 📦 Rutas de la API
-app.use('/api/auth', authRoutes);
-app.use('/api/usuarios', usuariosRoutes);
-app.use('/api/clientes', clientesRoutes);
-app.use('/api/control-horarios', controlHorariosRoutes);
-app.use('/api/sucursales', sucursalesRoutes);
-app.use('/api/empleados', empleadosRoutes);
-app.use('/api/asistencias', asistenciaRoutes);
-app.use('/api/servicios', serviciosRoutes);
-app.use('/api/regalos', regalosRoutes);
-app.use('/api/canjes', canjesRoutes);
-app.use('/api/ventas', ventasRoutes);
-app.use('/api/dellers', dellersRoutes);
-
-// ✅ Ruta de prueba
+// Ruta de prueba
 app.get('/', (req, res) => {
   res.send('✅ API CarWash funcionando correctamente');
 });
 
-// 🟢 Levantar el servidor
 app.listen(PORT, () => {
   console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
 });
