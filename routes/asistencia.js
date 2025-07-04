@@ -4,12 +4,11 @@ const db = require('../db/connection');
 const {
   obtenerHistorialSemanal,
   obtenerHistorialPorEmpleado,
-  obtenerHistorialPorRango ,
-  filtrarAsistenciasPorFechas 
-  
+  obtenerHistorialPorRango,
+  filtrarAsistenciasPorFechas
 } = require('../controllers/asistencias.controller'); 
 
-// POST /api/asistencias
+// ✅ Registrar entrada/salida de asistencia
 router.post('/', (req, res) => {
   console.log('📥 POST /api/asistencias alcanzado');
   const { user_id } = req.body;
@@ -31,8 +30,6 @@ router.post('/', (req, res) => {
       console.error('❌ Error al buscar empleado:', err);
       return res.status(500).json({ error: err });
     }
-
-    console.log('🟢 Resultados:', results);
 
     if (results.length === 0) {
       return res.status(404).json({ error: 'Empleado no encontrado' });
@@ -59,6 +56,7 @@ router.post('/', (req, res) => {
       const registro = registros[0];
 
       if (!registro || registro.hora_salida) {
+        // Registrar entrada
         const insertar = `
           INSERT INTO asistencias (id_empleado, fecha, hora_entrada) 
           VALUES (?, ?, ?)
@@ -75,6 +73,7 @@ router.post('/', (req, res) => {
           });
         });
       } else {
+        // Registrar salida
         const actualizar = `
           UPDATE asistencias SET hora_salida = ? WHERE id = ?
         `;
@@ -112,7 +111,6 @@ router.get('/nombre/:id_empleado', (req, res) => {
   });
 });
 
-
 // ✅ Historial semanal por user_id (para empleados)
 router.get('/historial/:user_id', obtenerHistorialSemanal);
 
@@ -122,10 +120,7 @@ router.get('/empleado/:id_empleado', obtenerHistorialPorEmpleado);
 // ✅ Historial por rango
 router.get('/empleado/:id_empleado/rango', obtenerHistorialPorRango);
 
-// GET /api/asistencias/filtrar?id_empleado=1&desde=2025-06-01&hasta=2025-06-10
+// ✅ Filtrar asistencias por fechas
 router.get('/filtrar', filtrarAsistenciasPorFechas);
-
-
-
 
 module.exports = router;

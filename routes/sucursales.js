@@ -1,4 +1,4 @@
-const express = require('express'); 
+const express = require('express');
 const router = express.Router();
 const sucursalesController = require('../controllers/sucursalesController');
 
@@ -8,10 +8,10 @@ router.get('/', sucursalesController.obtenerTodasSucursales);
 // ✅ Obtener resumen de una sucursal específica
 router.get('/resumen/:id', sucursalesController.obtenerResumenSucursal);
 
-// ✅ Obtener sucursal por ID
+// ✅ Obtener sucursal por ID (ruta específica)
 router.get('/id/:id', sucursalesController.obtenerSucursalPorId);
 
-// ✅ Obtener sucursales por cliente
+// ✅ Obtener sucursales por cliente (esta es la genérica, va al final)
 router.get('/:idCliente', sucursalesController.obtenerSucursalesPorCliente);
 
 // ✅ Crear nueva sucursal

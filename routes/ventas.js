@@ -18,14 +18,10 @@ router.post('/declinar', ventasController.declinarVenta);
 router.get('/historial', ventasController.obtenerHistorialVentas);
 router.post('/historial', ventasController.obtenerHistorialVentas); // ✅ para filtros con body
 
+// ✅ RUTA ÚNICA PARA PENDIENTES
 router.get('/pendientes/:id_sucursal', ventasController.obtenerVentasPendientes);
 
-router.get('/pendientes/:idSucursal', ventasController.obtenerPendientes);
-
+// ✅ Resumen de sucursal
 router.get('/resumen/:id_sucursal', ventasController.obtenerResumenSucursal);
-
-
-
-
 
 module.exports = router;

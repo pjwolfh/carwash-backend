@@ -13,7 +13,7 @@ const {
   obtenerServiciosPorCliente,
   getCredencialesUsuario,
   obtenerUsuarioPorCodigo,
-  obtenerSucursalesPorUsuario // ✅ nuevo
+  obtenerSucursalesPorUsuario
 } = require('../controllers/usuariosController');
 
 // 🔐 Login del usuario
@@ -25,11 +25,11 @@ router.post('/registrar', crearUsuario);
 // 🔍 Obtener todos los usuarios
 router.get('/', obtenerUsuarios);
 
-// 🔍 Obtener usuario por ID numérico (ej. /usuarios/13)
-router.get('/:id', obtenerUsuario);
-
 // 🔍✅ Obtener usuario por código alfanumérico (ej. /usuarios/codigo/7P8NQU)
 router.get('/codigo/:user_id', obtenerUsuarioPorCodigo);
+
+// 🔍 Obtener usuario por ID numérico (ej. /usuarios/13)
+router.get('/:id', obtenerUsuario);
 
 // ✅ Editar usuario
 router.put('/:id', editarUsuario);
@@ -50,6 +50,6 @@ router.get('/:id/servicios', obtenerServiciosPorCliente);
 router.get('/:id/credenciales', getCredencialesUsuario);
 
 // 🔗 Sucursales asignadas al usuario
-router.get('/:id/sucursales', obtenerSucursalesPorUsuario); // ✅ NUEVO
+router.get('/:id/sucursales', obtenerSucursalesPorUsuario);
 
 module.exports = router;

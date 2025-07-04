@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const empleadosController = require('../controllers/empleadosController');
-const db = require('../db/connection'); // necesario para la ruta directa
+const db = require('../db/connection');
 
-// Listar empleados por sucursal
-router.get('/:idSucursal', empleadosController.obtenerEmpleadosPorSucursal);
-
-// Crear nuevo empleado
+// ✅ Crear nuevo empleado
 router.post('/', empleadosController.crearEmpleado);
 
-// Eliminar (lógico o físico)
+// ✅ Eliminar empleado
 router.delete('/:idEmpleado', empleadosController.eliminarEmpleado);
 
-// Actualizar datos de un empleado
+// ✅ Actualizar empleado
 router.put('/:idEmpleado', empleadosController.actualizarEmpleado);
 
-// Obtener empleado por ID (ruta antigua basada en ID numérico)
+// ✅ NUEVA RUTA PARA PANEL EMPLEADO
+router.get('/info/:user_id', empleadosController.obtenerEmpleadoPorUserId);
+
+// ✅ Obtener empleado por ID (ruta antigua)
 router.get('/buscar/:idEmpleado', empleadosController.obtenerEmpleadoPorId);
 
-// 🔍 Buscar empleado por user_id (usado por QR)
+// ✅ Buscar empleado por user_id (usado por QR)
 router.post('/buscar', (req, res) => {
   const { user_id } = req.body;
   if (!user_id) return res.status(400).json({ error: 'Falta user_id' });
@@ -31,7 +31,7 @@ router.post('/buscar', (req, res) => {
   });
 });
 
-// ✅ NUEVA RUTA PARA PANEL EMPLEADO
-router.get('/info/:user_id', empleadosController.obtenerEmpleadoPorUserId);
+// ✅ LISTAR EMPLEADOS POR SUCURSAL (AL FINAL para evitar conflicto)
+router.get('/:idSucursal', empleadosController.obtenerEmpleadosPorSucursal);
 
 module.exports = router;

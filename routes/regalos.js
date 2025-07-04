@@ -22,16 +22,16 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// ✅ Rutas con upload
+// ✅ Rutas para REGALOS
 router.get('/', obtenerRegalos);
+router.post('/', upload.single('imagen'), crearRegalo);
+router.put('/:id', upload.single('imagen'), actualizarRegalo);
+
+// ✅ Rutas para CANJES
 router.post('/canjear', canjearRegalo);
 router.post('/validar', validarCanje);
 router.get('/historial/:user_id', obtenerCanjesPorUsuario);
 router.post('/marcar-entregado', marcarCanjeComoEntregado);
 router.post('/entregar', entregarCanje);
-
-// 🟢 Aquí usas multer para recibir imagen en el body
-router.post('/', upload.single('imagen'), crearRegalo);
-router.put('/:id', upload.single('imagen'), actualizarRegalo);
 
 module.exports = router;
