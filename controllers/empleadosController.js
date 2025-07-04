@@ -1,5 +1,5 @@
 const db = require('../db/connection');
-const bcrypt = require('bcryptjs'); // Asegúrate de tenerlo instalado
+const bcryptjs = require('bcryptjs'); // Asegúrate de tenerlo instalado
 
 // Obtener empleados por sucursal
 exports.obtenerEmpleadosPorSucursal = (req, res) => {
@@ -20,7 +20,7 @@ exports.crearEmpleado = (req, res) => {
   const nuevoUsuario = {
     telefono: body.telefono,
     email: body.correo,
-    password: bcrypt.hashSync('123456', 10),
+    password: bcryptjs.hashSync('123456', 10),
     rol_id: body.rol_id || 4,  // ✅ usa 4 por defecto si no se envía
     puntos: 0,
     servicios_acumulados: 0,

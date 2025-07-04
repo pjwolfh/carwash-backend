@@ -1,5 +1,5 @@
 const db = require('../db/connection');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const { enviarCorreoBienvenida } = require('../utils/mailer');
 
 // 🔁 Generar ID de usuario (6 caracteres alfanuméricos)
@@ -57,7 +57,7 @@ const crearUsuario = async (req, res) => {
   } = req.body;
 
   const user_id = generarIdUsuario();
-  const hashed = password ? await bcrypt.hash(password, 10) : null;
+  const hashed = password ? await bcryptjs.hash(password, 10) : null;
 
   const query = `
     INSERT INTO usuarios (
@@ -154,7 +154,7 @@ const eliminarUsuario = (req, res) => {
 const resetearPasswordCliente = async (req, res) => {
   const { id } = req.params;
   const nueva = '123456';
-  const hashed = await bcrypt.hash(nueva, 10);
+  const hashed = await bcryptjs.hash(nueva, 10);
 
   db.query('UPDATE usuarios SET password = ? WHERE id = ?', [hashed, id], (err) => {
     if (err) return res.status(500).json({ error: err });
