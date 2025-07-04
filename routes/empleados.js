@@ -9,8 +9,12 @@ router.post('/', empleadosController.crearEmpleado);
 // ✅ Eliminar empleado
 router.delete('/:idEmpleado', empleadosController.eliminarEmpleado);
 
-// ✅ Actualizar empleado
+// ✅ Actualizar empleado SIMPLE
 router.put('/:idEmpleado', empleadosController.actualizarEmpleado);
+
+// ✅ NUEVAS rutas para editar empleado desde Angular
+router.put('/sucursal/:idSucursal/empleados/editar/:idEmpleado', empleadosController.actualizarEmpleado);
+router.get('/sucursal/:idSucursal/empleados/editar/:idEmpleado', empleadosController.obtenerEmpleadoPorId);
 
 // ✅ NUEVA RUTA PARA PANEL EMPLEADO
 router.get('/info/:user_id', empleadosController.obtenerEmpleadoPorUserId);
